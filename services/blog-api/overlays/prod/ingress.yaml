@@ -5,13 +5,14 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
 spec:
   tls:
     - hosts:
-        - api.test.prof-stankin.ru
+        - api-blog.test.prof-stankin.ru
       secretName: blog-api-tls
   rules:
-    - host: api.test.prof-stankin.ru
+    - host: api-blog.test.prof-stankin.ru
       http:
         paths:
           - path: /
