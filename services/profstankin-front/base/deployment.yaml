@@ -19,7 +19,7 @@ spec:
             - containerPort: 80
           env:
             - name: VITE_SERVER_API
-              value: "http://schedule-api-svc:80"
+              value: "https://test.prof-stankin.ru"
 ---
 apiVersion: v1
 kind: Service

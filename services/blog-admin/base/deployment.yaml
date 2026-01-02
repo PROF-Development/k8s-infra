@@ -19,9 +19,9 @@ spec:
             - containerPort: 80
           env:
             - name: VITE_BLOG_API_URL
-              value: "https://api.example.com/api"
+              value: "https://admin.test.prof-stankin.ru/api"
             - name: VITE_SERVER_API
-              value: "https://api.example.com"
+              value: "https://admin.test.prof-stankin.ru"
 ---
 apiVersion: v1
 kind: Service

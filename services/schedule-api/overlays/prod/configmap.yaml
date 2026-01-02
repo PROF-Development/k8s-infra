@@ -4,7 +4,7 @@ metadata:
   name: schedule-api-config
 data:
   DEBUG: "False"
-  POSTGRES_HOST: "schedule-db-svc"
+  POSTGRES_HOST: "postgres-schedule-api"
   REDIS_HOST: "redis-schedule-api"
   EOS_URL: "https://edu.stankin.ru"
   EOS_SCHEDULE_CHECK_TIME: "03:00"

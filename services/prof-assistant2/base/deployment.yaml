@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: prof-assistant
+  name: prof-assistant2
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: prof-assistant
+      app: prof-assistant2
   template:
     metadata:
       labels:
-        app: prof-assistant
+        app: prof-assistant2
     spec:
       containers:
         - name: bot
