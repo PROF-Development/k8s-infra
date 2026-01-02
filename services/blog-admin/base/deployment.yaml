@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blog-admin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blog-admin
+  template:
+    metadata:
+      labels:
+        app: blog-admin
+    spec:
+      containers:
+        - name: frontend
+          image: chouqe/blog-admin-frontend:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: VITE_BLOG_API_URL
+              value: "https://api.example.com/api"
+            - name: VITE_SERVER_API
+              value: "https://api.example.com"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: blog-admin-svc
+spec:
+  selector:
+    app: blog-admin
+  ports:
+    - port: 80
+      targetPort: 80

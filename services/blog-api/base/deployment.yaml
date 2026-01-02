@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blog-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blog-api
+  template:
+    metadata:
+      labels:
+        app: blog-api
+    spec:
+      containers:
+        - name: application
+          image: chouqe/blog-api-application:latest
+          envFrom:
+            - configMapRef:
+                name: blog-api-config
+            - secretRef:
+                name: blog-api-secrets
+          volumeMounts:
+            - name: logs
+              mountPath: /project/logs
+        - name: alloy
+          image: grafana/alloy:latest
+          args:
+            [
+              "run",
+              "--server.http.listen-addr=0.0.0.0:8989",
+              "/etc/alloy/config.alloy",
+            ]
+          volumeMounts:
+            - name: alloy-conf
+              mountPath: /etc/alloy
+            - name: logs
+              mountPath: /project/logs
+      volumes:
+        - name: logs
+          emptyDir: {}
+        - name: alloy-conf
+          configMap:
+            name: alloy-config-blog

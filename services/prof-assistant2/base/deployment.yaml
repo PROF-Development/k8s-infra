@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prof-assistant
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prof-assistant
+  template:
+    metadata:
+      labels:
+        app: prof-assistant
+    spec:
+      containers:
+        - name: bot
+          image: chouqe/prof-assistant2:latest
+          envFrom:
+            - configMapRef:
+                name: prof-bot-config
+            - secretRef:
+                name: prof-bot-secrets
+          volumeMounts:
+            - name: logs
+              mountPath: /project/logs
+        - name: alloy
+          image: grafana/alloy:latest
+          args:
+            [
+              "run",
+              "--server.http.listen-addr=0.0.0.0:12345",
+              "/etc/alloy/config.alloy",
+            ]
+          volumeMounts:
+            - name: alloy-conf
+              mountPath: /etc/alloy
+            - name: logs
+              mountPath: /project/logs
+      volumes:
+        - name: logs
+          emptyDir: {}
+        - name: alloy-conf
+          configMap:
+            name: alloy-config-bot
