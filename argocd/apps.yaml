@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/chouqe/k8s-infra.git
+    repoURL: https://github.com/PROF-Development/k8s-infra.git
     targetRevision: HEAD
     path: services
     directory:
