@@ -19,7 +19,7 @@ spec:
             - containerPort: 80
           env:
             - name: VITE_SERVER_API
-              value: "https://test.prof-stankin.ru"
+              value: "https://api.test.prof-stankin.ru" # Убедись, что это URL твоего schedule-api
 ---
 apiVersion: v1
 kind: Service

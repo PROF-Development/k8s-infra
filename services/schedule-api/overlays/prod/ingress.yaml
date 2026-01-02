@@ -1,23 +1,25 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: profstankin-ingress
+  name: schedule-api-ingress
   annotations:
     kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "https://profstankin.ru, https://test.prof-stankin.ru"
 spec:
   tls:
     - hosts:
-        - test.prof-stankin.ru
-      secretName: profstankin-tls
+        - api.test.prof-stankin.ru
+      secretName: schedule-api-tls
   rules:
-    - host: test.prof-stankin.ru
+    - host: api.test.prof-stankin.ru
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: profstankin-front-svc
+                name: schedule-api-svc
                 port:
                   number: 80

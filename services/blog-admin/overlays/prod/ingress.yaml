@@ -8,10 +8,10 @@ metadata:
 spec:
   tls:
     - hosts:
-        - admin.example.com
+        - admin.test.prof-stankin.ru
       secretName: blog-admin-tls
   rules:
-    - host: admin.example.com
+    - host: admin.test.prof-stankin.ru
       http:
         paths:
           - path: /
