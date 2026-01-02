@@ -10,7 +10,8 @@ spec:
     targetRevision: HEAD
     path: services
     directory:
-      recurse: true
+      recurse: false
+      include: "**/overlays/prod"
   destination:
     server: https://kubernetes.default.svc
     namespace: default

@@ -4,7 +4,7 @@ metadata:
   name: blog-api-config
 data:
   SERVICE_NAME: "blog_api"
-  POSTGRES_HOST: "postgres-blog-api"
+  POSTGRES_HOST: "schedule-db-svc"
   POSTGRES_PORT: "5432"
   MINIO_ENDPOINT: "minio:9000"
   CORS_DOMAIN: "example.com"
