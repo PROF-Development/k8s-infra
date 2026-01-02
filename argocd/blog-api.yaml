@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: blog-api
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/PROF-Development/k8s-infra.git
+    targetRevision: HEAD
+    path: services/blog-api/overlays/prod
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
