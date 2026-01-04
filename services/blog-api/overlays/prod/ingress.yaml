@@ -3,10 +3,10 @@ kind: Ingress
 metadata:
   name: blog-api-ingress
   annotations:
-    kubernetes.io/ingress.class: nginx
+    kubernetes.io/ingress.class: traefik
     cert-manager.io/cluster-issuer: "selfsigned-issuer"
-    nginx.ingress.kubernetes.io/enable-cors: "true"
 spec:
+  ingressClassName: traefik
   tls:
     - hosts:
         - api-blog.test.prof-stankin.ru

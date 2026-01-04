@@ -3,9 +3,10 @@ kind: Ingress
 metadata:
   name: minio-console-ingress
   annotations:
-    kubernetes.io/ingress.class: nginx
+    kubernetes.io/ingress.class: traefik
     cert-manager.io/cluster-issuer: "selfsigned-issuer"
 spec:
+  ingressClassName: traefik
   tls:
     - hosts:
         - minio.test.prof-stankin.ru
