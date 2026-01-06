@@ -2,10 +2,12 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: blog-admin-ingress
+  namespace: default
   annotations:
     kubernetes.io/ingress.class: traefik
     cert-manager.io/cluster-issuer: "selfsigned-issuer"
 spec:
+  ingressClassName: traefik
   rules:
     - host: admin.test.prof-stankin.ru
       http:
@@ -17,3 +19,7 @@ spec:
                 name: blog-admin-svc
                 port:
                   number: 80
+  tls:
+  - hosts:
+    - admin.test.prof-stankin.ru
+    secretName: blog-admin-tls
