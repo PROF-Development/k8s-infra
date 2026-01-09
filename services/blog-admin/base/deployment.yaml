@@ -15,13 +15,9 @@ spec:
       containers:
         - name: frontend
           image: chouqe/blog-admin-frontend:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
-          env:
-            - name: VITE_BLOG_API_URL
-              value: "https://api-blog.test.prof-stankin.ru"
-            - name: VITE_SERVER_API
-              value: "https://admin.test.prof-stankin.ru"
 ---
 apiVersion: v1
 kind: Service
