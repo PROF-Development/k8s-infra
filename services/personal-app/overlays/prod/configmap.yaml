@@ -11,6 +11,7 @@ data:
   POSTGRES_USER: "user"
   POSTGRES_DATABASE: "postgres"
   POSTGRES_SSLMODE: "disable"
+  POSTGRES_MIGRATIONS_DIR: "migrations"
   
   S3_ENDPOINT: "minio:9000"
   S3_SECURE: "false"
