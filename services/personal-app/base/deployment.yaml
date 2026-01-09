@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: personal-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: personal-app
+  template:
+    metadata:
+      labels:
+        app: personal-app
+    spec:
+      containers:
+        - name: app
+          image: chouqe/personal-app:latest
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: personal-app-config
