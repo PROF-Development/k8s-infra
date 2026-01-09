@@ -4,15 +4,15 @@ metadata:
   name: blog-api-ingress
   annotations:
     kubernetes.io/ingress.class: traefik
-    cert-manager.io/cluster-issuer: "selfsigned-issuer"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   ingressClassName: traefik
   tls:
     - hosts:
-        - api-blog.test.prof-stankin.ru
+        - api.test.prof-stankin.ru
       secretName: blog-api-tls
   rules:
-    - host: api-blog.test.prof-stankin.ru
+    - host: api.test.prof-stankin.ru
       http:
         paths:
           - path: /

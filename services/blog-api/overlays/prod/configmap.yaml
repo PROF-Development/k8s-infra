@@ -16,4 +16,4 @@ data:
   MINIO_SECURE: "False"
   MINIO_BUCKET_NAME: "blog"
   MINIO_BASE_URL: "https://minio.test.prof-stankin.ru"
-  CORS_DOMAIN: "https://admin.test.prof-stankin.ru"
+  CORS_DOMAIN: "https://admin.test.prof-stankin.ru,https://api.test.prof-stankin.ru"
