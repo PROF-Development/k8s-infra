@@ -20,3 +20,5 @@ spec:
           envFrom:
             - configMapRef:
                 name: personal-app-config
+            - secretRef:
+                name: personal-app-secrets
