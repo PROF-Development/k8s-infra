@@ -4,3 +4,7 @@ resources:
   - deployment.yaml
   - alloy-config.yaml
   - service.yaml
+images:
+  - name: blog-api-image
+    newName: chouqe/blog-api-application
+    newTag: latest

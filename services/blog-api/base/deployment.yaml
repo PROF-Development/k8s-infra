@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: application
-          image: chouqe/blog-api-application:latest
+          image: blog-api-image
           ports:
             - containerPort: 7070
           readinessProbe:
