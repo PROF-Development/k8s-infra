@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: chouqe/personal-app:latest
+          image: personal-app-image
           ports:
             - containerPort: 8080
           envFrom:
