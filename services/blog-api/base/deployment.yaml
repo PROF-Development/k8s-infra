@@ -15,6 +15,20 @@ spec:
       containers:
         - name: application
           image: chouqe/blog-api-application:latest
+          ports:
+            - containerPort: 7070
+          readinessProbe:
+            httpGet:
+              path: /api/v1/categories/
+              port: 7070
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /api/v1/categories/
+              port: 7070
+            initialDelaySeconds: 15
+            periodSeconds: 20
           envFrom:
             - configMapRef:
                 name: blog-api-config
