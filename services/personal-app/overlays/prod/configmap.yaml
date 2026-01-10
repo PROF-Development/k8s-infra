@@ -5,6 +5,7 @@ metadata:
 data:
   SERVER_HOST: "0.0.0.0"
   SERVER_PORT: "8080"
+  API_CORS_ORIGINS: "https://personal.test.prof-stankin.ru,https://admin.test.prof-stankin.ru"
   
   POSTGRES_HOST: "postgres-personal" 
   POSTGRES_PORT: "5432"
