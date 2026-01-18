@@ -7,6 +7,3 @@ images:
 - name: chouqe/profstankin-frontend
   newName: chouqe/profstankin-front
   newTag: 906e2e4
-- name: profstankin-front-image
-  newName: chouqe/profstankin-front
-  newTag: 06c94b3
