@@ -1,5 +1,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ../../base
-  - ingress.yaml
+- ../../base
+- ingress.yaml
+images:
+- name: profstankin-front-image
+  newName: chouqe/profstankin-front
+  newTag: 06c94b3
