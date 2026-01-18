@@ -1,16 +1,16 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: minio-console-ingress
+  name: minio-api-ingress
   annotations:
     kubernetes.io/ingress.class: traefik
-    cert-manager.io/cluster-issuer: "selfsigned-issuer"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   ingressClassName: traefik
   tls:
     - hosts:
         - minio.test.prof-stankin.ru
-      secretName: minio-console-tls
+      secretName: minio-api-tls-prod
   rules:
     - host: minio.test.prof-stankin.ru
       http:
@@ -21,4 +21,4 @@ spec:
               service:
                 name: minio
                 port:
-                  name: console
+                  number: 9000

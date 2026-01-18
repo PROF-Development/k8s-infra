@@ -25,9 +25,21 @@ spec:
               value: "minioadmin"
             - name: MINIO_ROOT_PASSWORD
               value: "minio123"
+            - name: MINIO_BROWSER
+              value: "off"
+            - name: MINIO_SERVER_URL
+              value: "https://minio.test.prof-stankin.ru"
           ports:
             - containerPort: 9000 # API
             - containerPort: 9001 # UI
+          volumeMounts:
+            - name: minio-data
+              mountPath: /data
+      volumes:
+        - name: minio-data
+          hostPath:
+            path: /var/lib/minio
+            type: DirectoryOrCreate
 ---
 apiVersion: v1
 kind: Service
@@ -39,5 +51,7 @@ spec:
   ports:
     - name: api
       port: 9000
+      targetPort: 9000
     - name: console
       port: 9001
+      targetPort: 9001
