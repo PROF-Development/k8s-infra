@@ -6,4 +6,4 @@ resources:
 images:
 - name: chouqe/profstankin-frontend
   newName: chouqe/profstankin-front
-  newTag: 05f9269
+  newTag: 9bdbce5
