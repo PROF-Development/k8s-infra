@@ -9,7 +9,7 @@ data:
   POSTGRES_USER: "user"
   POSTGRES_DB: "postgres"
   JWT_ALGORITHM: "HS256"
-  INSPECT_TOKEN_URL: "http://schedule-api-svc/auth/inspect"
+  INSPECT_TOKEN_URL: "http://personal-app/api/v1/auth/inspect_token"
   MINIO_ENDPOINT: "minio.test.prof-stankin.ru"
   MINIO_ACCESS_KEY: "minioadmin"
   MINIO_SECRET_KEY: "minio123"

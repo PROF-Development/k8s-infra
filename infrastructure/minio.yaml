@@ -26,7 +26,9 @@ spec:
             - name: MINIO_ROOT_PASSWORD
               value: "minio123"
             - name: MINIO_BROWSER
-              value: "off"
+              value: "on"
+            - name: MINIO_CONSOLE_ADDRESS
+              value: ":9001"
             - name: MINIO_SERVER_URL
               value: "https://minio.test.prof-stankin.ru"
           ports:
