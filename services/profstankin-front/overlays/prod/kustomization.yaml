@@ -3,6 +3,12 @@ kind: Kustomization
 resources:
 - ../../base
 - ingress.yaml
+
+configMapGenerator:
+  - name: front-config
+    literals:
+      - VITE_SERVER_API=/api
+
 images:
 - name: chouqe/profstankin-frontend
   newName: chouqe/profstankin-front
