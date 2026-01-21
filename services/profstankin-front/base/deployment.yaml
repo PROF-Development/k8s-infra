@@ -19,7 +19,10 @@ spec:
             - containerPort: 80
           env:
             - name: VITE_SERVER_API
-              value: "https://api.test.prof-stankin.ru"
+              valueFrom:
+                configMapKeyRef:
+                  name: front-config
+                  key: VITE_SERVER_API
 ---
 apiVersion: v1
 kind: Service

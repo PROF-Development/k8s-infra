@@ -7,7 +7,7 @@ resources:
 configMapGenerator:
   - name: front-config
     literals:
-      - VITE_SERVER_API=/api
+      - VITE_SERVER_API=https://api-blog.test.prof-stankin.ru
 
 images:
 - name: chouqe/profstankin-frontend
