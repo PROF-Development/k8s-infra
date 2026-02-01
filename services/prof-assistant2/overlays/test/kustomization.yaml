@@ -7,4 +7,4 @@ resources:
 images:
 - name: prof-assistant2-image
   newName: chouqe/prof-assistant2
-  newTag: eec5839
+  newTag: 24df216
