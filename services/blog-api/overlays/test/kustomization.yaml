@@ -8,4 +8,4 @@ resources:
 images:
 - name: blog-api-image
   newName: chouqe/blog-api-application
-  newTag: d05483c
+  newTag: 8320e6e
