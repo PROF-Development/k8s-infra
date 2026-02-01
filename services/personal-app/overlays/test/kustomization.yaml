@@ -8,7 +8,6 @@ resources:
 
 configMapGenerator:
 - name: personal-app-config
-  behavior: merge
   files:
     - configmap.yaml
 
