@@ -8,4 +8,4 @@ resources:
 images:
 - name: personal-app-image
   newName: chouqe/personal-app
-  newTag: 8055b0e
+  newTag: 031ca87
