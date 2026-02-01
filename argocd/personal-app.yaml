@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: personal-app
-  namespace: prof-test-apps
+  namespace: argocd
 spec:
   project: default
   source:
@@ -11,7 +11,7 @@ spec:
     path: services/personal-app/overlays/test
   destination:
     server: https://kubernetes.default.svc
-    namespace: default
+    namespace: prof-test-apps
   syncPolicy:
     automated:
       prune: true

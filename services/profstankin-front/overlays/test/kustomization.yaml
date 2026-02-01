@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- ../../base
+- ingress.yaml
+
+configMapGenerator:
+  - name: front-config
+    literals:
+      - VITE_SERVER_API=https://api-blog.test.prof-stankin.ru
+
+images:
+- name: chouqe/profstankin-frontend
+  newName: chouqe/profstankin-front
+  newTag: a4a868b

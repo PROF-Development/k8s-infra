@@ -8,11 +8,14 @@ spec:
   source:
     repoURL: https://github.com/PROF-Development/k8s-infra.git
     targetRevision: HEAD
-    path: services/schedule-api/overlays/prod
+    path: services/schedule-api/overlays/test
   destination:
     server: https://kubernetes.default.svc
-    namespace: default
+    namespace: prof-test-apps
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
+      allowEmpty: false
+    syncOptions:
+      - CreateNamespace=true
