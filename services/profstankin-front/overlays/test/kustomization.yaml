@@ -5,11 +5,11 @@ resources:
 - ingress.yaml
 
 configMapGenerator:
-  - name: front-config
-    literals:
-      - VITE_SERVER_API=https://api-blog.test.prof-stankin.ru
+- literals:
+  - VITE_SERVER_API=https://api-blog.test.prof-stankin.ru
+  name: front-config
 
 images:
 - name: chouqe/profstankin-frontend
   newName: chouqe/profstankin-front
-  newTag: a4a868b
+  newTag: 91ddbef
