@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: prof-bot-config
-  namespace: default
+  namespace: prof-test-db
 data:
   SCHEDULE_API_URL: "http://schedule-api-svc:80"
   ALLOWED_CHANNEL_ID: "-1003468348519"

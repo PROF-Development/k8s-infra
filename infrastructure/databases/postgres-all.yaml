@@ -5,6 +5,7 @@ items:
     kind: StatefulSet
     metadata:
       name: postgres-schedule-api
+      namespace: prof-test-db
     spec:
       serviceName: "postgres-schedule-api"
       replicas: 1
@@ -43,6 +44,7 @@ items:
     kind: Service
     metadata:
       name: postgres-schedule-api
+      namespace: prof-test-db
     spec:
       selector:
         app: postgres-schedule-api
@@ -53,6 +55,7 @@ items:
     kind: StatefulSet
     metadata:
       name: postgres-prof-assistant
+      namespace: prof-test-db
     spec:
       serviceName: "postgres-prof-assistant"
       replicas: 1
@@ -91,6 +94,7 @@ items:
     kind: Service
     metadata:
       name: postgres-prof-assistant
+      namespace: prof-test-db
     spec:
       selector:
         app: postgres-prof-assistant
@@ -101,6 +105,7 @@ items:
     kind: StatefulSet
     metadata:
       name: postgres-personal
+      namespace: prof-test-db
     spec:
       serviceName: "postgres-personal"
       replicas: 1
@@ -139,6 +144,7 @@ items:
     kind: Service
     metadata:
       name: postgres-personal
+      namespace: prof-test-db
     spec:
       selector:
         app: postgres-personal

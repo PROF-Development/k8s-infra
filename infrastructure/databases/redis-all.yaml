@@ -5,6 +5,7 @@ items:
     kind: Deployment
     metadata:
       name: redis-schedule-api
+      namespace: prof-test-db
     spec:
       replicas: 1
       selector:
@@ -24,6 +25,7 @@ items:
     kind: Service
     metadata:
       name: redis-schedule-api
+      namespace: prof-test-db
     spec:
       selector:
         app: redis-schedule-api
@@ -34,6 +36,7 @@ items:
     kind: Deployment
     metadata:
       name: redis-prof-assistant
+      namespace: prof-test-db
     spec:
       replicas: 1
       selector:
@@ -53,6 +56,7 @@ items:
     kind: Service
     metadata:
       name: redis-prof-assistant
+      namespace: prof-test-db
     spec:
       selector:
         app: redis-prof-assistant

@@ -4,7 +4,7 @@ metadata:
   namespace: prof-test-db
 data:
   SERVICE_NAME: "blog_api"
-  POSTGRES_HOST: "postgres-prof-assistant"
+  POSTGRES_HOST: "postgres-prof-assistant.prof-test-db.svc.cluster.local"
   POSTGRES_PORT: "5432"
   POSTGRES_USER: "user"
   POSTGRES_DB: "postgres"

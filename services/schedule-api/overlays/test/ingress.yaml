@@ -1,25 +1,25 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: profstankin-ingress
+  name: schedule-api-ingress
   namespace: prof-test-apps
   annotations:
     kubernetes.io/ingress.class: traefik
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    cert-manager.io/cluster-issuer: "selfsigned-issuer"
 spec:
   ingressClassName: traefik
   tls:
     - hosts:
-        - test.prof-stankin.ru
-      secretName: profstankin-tls
+        - api.test.prof-stankin.ru
+      secretName: schedule-api-tls
   rules:
-    - host: test.prof-stankin.ru
+    - host: api.test.prof-stankin.ru
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: profstankin-front-svc
+                name: schedule-api-svc
                 port:
                   number: 80
