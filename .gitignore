@@ -1,1 +1,9 @@
 .vscode/
+backups/
+backups-backup/
+dump_database.sh
+dump_minio.sh
+migrate.sh
+migrate.sh.save
+migration_final.tar.gz
+TRANSFER/

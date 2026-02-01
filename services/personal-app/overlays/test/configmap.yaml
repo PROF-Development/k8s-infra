@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: personal-app-config
+data:
+  SERVER_HOST: "0.0.0.0"
+  SERVER_PORT: "8080"
+  API_CORS_ORIGINS: "https://personal.test.prof-stankin.ru,https://admin.test.prof-stankin.ru"  
+  POSTGRES_HOST: "postgres-personal" 
+  POSTGRES_PORT: "5432"
+  POSTGRES_USER: "user"
+  POSTGRES_DATABASE: "postgres"
+  POSTGRES_SSLMODE: "disable"
+  POSTGRES_MIGRATIONS_DIR: "migrations"
+  S3_ENDPOINT: "minio:9000"
+  S3_SECURE: "false"
+  S3_BUCKET_NAME: "personal-images"
+  S3_BASE_URL: "https://minio.test.prof-stankin.ru"
+  API_COOKIE_SECURE: "false"
+  API_COOKIE_PATH: "/"
+  AUTH_ALGORITHM: "HS256"
+  AUTH_TOKEN_EXPIRATION_TIME: "60"
+  AUTH_REFRESH_TOKEN_EXPIRATION_TIME: "30"

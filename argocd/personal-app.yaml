@@ -2,13 +2,13 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: personal-app
-  namespace: argocd
+  namespace: prof-test-apps
 spec:
   project: default
   source:
     repoURL: https://github.com/PROF-Development/k8s-infra.git
     targetRevision: HEAD
-    path: services/personal-app/overlays/prod
+    path: services/personal-app/overlays/test
   destination:
     server: https://kubernetes.default.svc
     namespace: default
@@ -16,3 +16,6 @@ spec:
     automated:
       prune: true
       selfHeal: true
+      allowEmpty: false
+    syncOptions:
+      - CreateNamespace=true

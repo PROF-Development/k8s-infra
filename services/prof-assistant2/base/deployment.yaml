@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: bot
-          image: chouqe/prof-assistant2:latest
+          image: prof-assistant2-image:latest
           envFrom:
             - configMapRef:
                 name: prof-bot-config

@@ -2,13 +2,13 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: blog-admin
-  namespace: argocd
+  namespace: prof-test-apps
 spec:
   project: default
   source:
     repoURL: https://github.com/PROF-Development/k8s-infra.git
     targetRevision: HEAD
-    path: services/blog-admin/overlays/prod
+    path: services/blog-admin/overlays/test
   destination:
     server: https://kubernetes.default.svc
     namespace: default

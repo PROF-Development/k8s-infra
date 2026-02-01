@@ -1,0 +1,251 @@
+#!/bin/bash
+
+OUTPUT="deployment-all-prod.yaml"
+NAMESPACE="default"
+
+root@localhost:~/projects/k8s-infra# touch migrate.sh
+root@localhost:~/projects/k8s-infra# nano migrate.sh 
+root@localhost:~/projects/k8s-infra# kubectl get namespaces
+NAME              STATUS   AGE
+argocd            Active   17d
+cert-manager      Active   17d
+default           Active   17d
+kube-node-lease   Active   17d
+kube-public       Active   17d
+kube-system       Active   17d
+root@localhost:~/projects/k8s-infra# kubectl get pods
+NAME                                    READY   STATUS    RESTARTS   AGE
+blog-admin-c4c5f6478-jnr7d              1/1     Running   0          11d
+blog-api-7cb6c86cfb-msx95               2/2     Running   0          23h
+minio-69b54c75b5-wpxg4                  1/1     Running   0          32m
+personal-app-5b6dd75bd9-wnpsv           1/1     Running   0          23h
+postgres-personal-0                     1/1     Running   0          12d
+postgres-prof-assistant-0               1/1     Running   0          17d
+postgres-schedule-api-0                 1/1     Running   0          17d
+prof-assistant2-6595449bbd-vwbvw        2/2     Running   0          24h
+profstankin-front-7cb7cd569f-ktxv6      1/1     Running   0          46h
+redis-prof-assistant-5bcb5bf6bc-jr79r   1/1     Running   0          15d
+redis-schedule-api-854684cbc9-gtbs7     1/1     Running   0          5d21h
+schedule-api-6fdfc97585-6nhps           1/1     Running   0          46h
+root@localhost:~/projects/k8s-infra# cd infrastructure/
+root@localhost:~/projects/k8s-infra/infrastructure# ll
+total 36
+drwxr-xr-x 3 root root 4096 Jan 18 18:44 ./
+drwxr-xr-x 6 root root 4096 Jan 21 22:24 ../
+-rw-r--r-- 1 root root 4405 Jan 16 00:07 blog-api-debug.yaml
+-rw-r--r-- 1 root root  321 Jan  7 15:46 cert-manager-issuer.yaml
+drwxr-xr-x 2 root root 4096 Jan  9 18:14 databases/
+-rw-r--r-- 1 root root  571 Jan 18 18:44 minio-ingress.yaml
+-rw-r--r-- 1 root root 1294 Jan 18 18:30 minio.yaml
+-rw-r--r-- 1 root root  110 Jan  4 17:56 selfsigned-issuer.yaml
+root@localhost:~/projects/k8s-infra/infrastructure# cat databases/
+postgres-all.yaml  redis-all.yaml     
+root@localhost:~/projects/k8s-infra/infrastructure# cat databases/postgres-all.yaml
+apiVersion: v1
+kind: List
+items:
+  - apiVersion: apps/v1
+    kind: StatefulSet
+    metadata:
+      name: postgres-schedule-api
+    spec:
+      serviceName: "postgres-schedule-api"
+      replicas: 1
+      selector:
+        matchLabels:
+          app: postgres-schedule-api
+      template:
+        metadata:
+          labels:
+            app: postgres-schedule-api
+        spec:
+          containers:
+            - name: postgres
+              image: postgres:15
+              env:
+                - name: POSTGRES_PASSWORD
+                  value: "pass"
+                - name: POSTGRES_USER
+                  value: "user"
+                - name: POSTGRES_DB
+                  value: "postgres"
+              ports:
+                - containerPort: 5432
+              volumeMounts:
+                - name: data
+                  mountPath: /var/lib/postgresql/data
+      volumeClaimTemplates:
+        - metadata:
+            name: data
+          spec:
+            accessModes: ["ReadWriteOnce"]
+            resources:
+              requests:
+                storage: 2Gi
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: postgres-schedule-api
+    spec:
+      selector:
+        app: postgres-schedule-api
+      ports:
+        - port: 5432
+
+  - apiVersion: apps/v1
+    kind: StatefulSet
+    metadata:
+      name: postgres-prof-assistant
+    spec:
+      serviceName: "postgres-prof-assistant"
+      replicas: 1
+      selector:
+        matchLabels:
+          app: postgres-prof-assistant
+      template:
+        metadata:
+          labels:
+            app: postgres-prof-assistant
+        spec:
+          containers:
+            - name: postgres
+              image: postgres:15
+              env:
+                - name: POSTGRES_PASSWORD
+                  value: "pass"
+                - name: POSTGRES_USER
+                  value: "user"
+                - name: POSTGRES_DB
+                  value: "postgres"
+              ports:
+                - containerPort: 5432
+              volumeMounts:
+                - name: data
+                  mountPath: /var/lib/postgresql/data
+      volumeClaimTemplates:
+        - metadata:
+            name: data
+          spec:
+            accessModes: ["ReadWriteOnce"]
+            resources:
+              requests:
+                storage: 2Gi
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: postgres-prof-assistant
+    spec:
+      selector:
+        app: postgres-prof-assistant
+      ports:
+        - port: 5432
+
+  - apiVersion: apps/v1
+    kind: StatefulSet
+    metadata:
+      name: postgres-personal
+    spec:
+      serviceName: "postgres-personal"
+      replicas: 1
+      selector:
+        matchLabels:
+          app: postgres-personal
+      template:
+        metadata:
+          labels:
+            app: postgres-personal
+        spec:
+          containers:
+            - name: postgres
+              image: postgres:15
+              env:
+                - name: POSTGRES_PASSWORD
+                  value: "pass"
+                - name: POSTGRES_USER
+                  value: "user"
+                - name: POSTGRES_DB
+                  value: "postgres"
+              ports:
+                - containerPort: 5432
+              volumeMounts:
+                - name: data
+                  mountPath: /var/lib/postgresql/data
+      volumeClaimTemplates:
+        - metadata:
+            name: data
+          spec:
+            accessModes: ["ReadWriteOnce"]
+            resources:
+              requests:
+                storage: 2Gi
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: postgres-personal
+    spec:
+      selector:
+        app: postgres-personal
+      ports:
+        - port: 5432
+root@localhost:~/projects/k8s-infra/infrastructure# cat databases/redis-all.yaml 
+apiVersion: v1
+kind: List
+items:
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: redis-schedule-api
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app: redis-schedule-api
+      template:
+        metadata:
+          labels:
+            app: redis-schedule-api
+        spec:
+          containers:
+            - name: redis
+              image: redis:7
+              ports:
+                - containerPort: 6379
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: redis-schedule-api
+    spec:
+      selector:
+        app: redis-schedule-api
+      ports:
+        - port: 6379
+
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: redis-prof-assistant
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app: redis-prof-assistant
+      template:
+        metadata:
+          labels:
+            app: redis-prof-assistant
+        spec:
+          containers:
+            - name: redis
+              image: redis:7
+              ports:
+                - containerPort: 6379
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: redis-prof-assistant
+    spec:
+      selector:
+        app: redis-prof-assistant
+      ports:
+        - port: 6379
+root@localhost:~/projects/k8s-infra/infrastructure# cat 
