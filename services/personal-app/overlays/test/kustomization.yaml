@@ -13,7 +13,6 @@ configMapGenerator:
 
 secretGenerator:
 - name: personal-app-secrets
-  behavior: replace
   files:
     - secrets.yaml
 
