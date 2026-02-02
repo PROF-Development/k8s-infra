@@ -1,15 +1,9 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: prof-bot-config
-  namespace: prof-test-db
-data:
-  SCHEDULE_API_URL: "http://schedule-api-svc:80"
-  ALLOWED_CHANNEL_ID: "-1003468348519"
-  REDIS_HOST: "redis-prof-assistant"
-  REDIS_PORT: "6379"
-  POSTGRES_HOST: "postgres-prof-assistant"
-  POSTGRES_PORT: "5432"
-  POSTGRES_USER: "user"
-  POSTGRES_DB: "postgres"
-  POSTGRES_PASSWORD: "pass"
+SCHEDULE_API_URL='http://schedule-api-svc:80'
+ALLOWED_CHANNEL_ID='-1003468348519'
+REDIS_HOST='redis-prof-assistant'
+REDIS_PORT='6379'
+POSTGRES_HOST='postgres-prof-assistant'
+POSTGRES_PORT='5432'
+POSTGRES_USER='user'
+POSTGRES_DB='postgres'
+POSTGRES_PASSWORD='pass'
