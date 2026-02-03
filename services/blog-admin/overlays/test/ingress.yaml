@@ -12,6 +12,22 @@ spec:
     - host: admin.test.prof-stankin.ru
       http:
         paths:
+          - path: /v1/auth
+            pathType: Prefix
+            backend:
+              service:
+                name: personal-app
+                port:
+                  number: 80
+
+          - path: /v1/core
+            pathType: Prefix
+            backend:
+              service:
+                name: blog-api-svc
+                port:
+                  number: 80
+
           - path: /
             pathType: Prefix
             backend:
@@ -20,6 +36,6 @@ spec:
                 port:
                   number: 80
   tls:
-  - hosts:
-    - admin.test.prof-stankin.ru
-    secretName: blog-admin-tls
+    - hosts:
+        - admin.test.prof-stankin.ru
+      secretName: blog-admin-tls
