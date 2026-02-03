@@ -7,4 +7,4 @@ resources:
 images:
 - name: blog-admin-image
   newName: chouqe/blog-admin-frontend
-  newTag: 3ea0392
+  newTag: bfd92b3
