@@ -1,0 +1,30 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: blog-admin-route
+  namespace: prof-test-apps
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`admin.test.prof-stankin.ru`) && PathPrefix(`/v1/auth`)
+      kind: Rule
+      services:
+        - name: personal-app
+          port: 80
+      middlewares:
+        - name: api-strip
+    - match: Host(`admin.test.prof-stankin.ru`) && PathPrefix(`/v1/core`)
+      kind: Rule
+      services:
+        - name: blog-api-svc
+          port: 80
+      middlewares:
+        - name: api-strip
+    - match: Host(`admin.test.prof-stankin.ru`) && PathPrefix(`/`)
+      kind: Rule
+      services:
+        - name: blog-admin-svc
+          port: 80
+  tls:
+    secretName: blog-admin-tls
