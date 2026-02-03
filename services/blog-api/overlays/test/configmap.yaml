@@ -1,10 +1,10 @@
 kind: ConfigMap
 metadata:
   name: blog-api-config
-  namespace: prof-test-db
+  namespace: prof-test-apps
 data:
   SERVICE_NAME: "blog_api"
-  POSTGRES_HOST: "postgres-prof-assistant.prof-test-db.svc.cluster.local"
+  POSTGRES_HOST: "postgres-blog-api.prof-test-db.svc.cluster.local"
   POSTGRES_PORT: "5432"
   POSTGRES_USER: "user"
   POSTGRES_DB: "postgres"
