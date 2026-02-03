@@ -14,7 +14,7 @@ configMapGenerator:
 images:
 - name: prof-front-image
   newName: chouqe/prof-front
-  newTag: 39cd14a
+  newTag: d1d892a
 - name: profstankin-frontend-image
   newName: chouqe/profstankin-front
   newTag: 91ddbef
