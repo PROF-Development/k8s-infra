@@ -14,13 +14,15 @@ spec:
           port: 80
       middlewares:
         - name: api-strip
-    - match: Host(`admin.test.prof-stankin.ru`) && PathPrefix(`/v1/core`)
+
+    - match: Host(`admin.test.prof-stankin.ru`) && (PathPrefix(`/v1/core`) || PathPrefix(`/v1/categories`))
       kind: Rule
       services:
         - name: blog-api-svc
           port: 80
       middlewares:
         - name: api-strip
+
     - match: Host(`admin.test.prof-stankin.ru`) && PathPrefix(`/`)
       kind: Rule
       services:
