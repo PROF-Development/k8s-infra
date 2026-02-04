@@ -1,0 +1,3 @@
+MINIO_BROWSER='on'
+MINIO_SERVER_URL='https://minio-api.test.prof-stankin.ru'
+MINIO_BROWSER_REDIRECT_URL='https://minio-console.test.prof-stankin.ru'
