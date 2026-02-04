@@ -1,6 +1,18 @@
 apiVersion: v1
 kind: List
 items:
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      name: postgres-schedule-api-data
+      namespace: prof-test-db
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 512Mi
+
   - apiVersion: apps/v1
     kind: StatefulSet
     metadata:
@@ -32,14 +44,11 @@ items:
               volumeMounts:
                 - name: data
                   mountPath: /var/lib/postgresql/data
-      volumeClaimTemplates:
-        - metadata:
-            name: data
-          spec:
-            accessModes: ["ReadWriteOnce"]
-            resources:
-              requests:
-                storage: 2Gi
+          volumes:
+            - name: data
+              persistentVolumeClaim:
+                claimName: postgres-schedule-api-data
+
   - apiVersion: v1
     kind: Service
     metadata:
@@ -89,7 +98,8 @@ items:
             accessModes: ["ReadWriteOnce"]
             resources:
               requests:
-                storage: 2Gi
+                storage: 512Mi
+
   - apiVersion: v1
     kind: Service
     metadata:
@@ -100,6 +110,18 @@ items:
         app: postgres-prof-assistant
       ports:
         - port: 5432
+
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      name: postgres-personal-data
+      namespace: prof-test-db
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 512Mi
 
   - apiVersion: apps/v1
     kind: StatefulSet
@@ -132,14 +154,11 @@ items:
               volumeMounts:
                 - name: data
                   mountPath: /var/lib/postgresql/data
-      volumeClaimTemplates:
-        - metadata:
-            name: data
-          spec:
-            accessModes: ["ReadWriteOnce"]
-            resources:
-              requests:
-                storage: 2Gi
+          volumes:
+            - name: data
+              persistentVolumeClaim:
+                claimName: postgres-personal-data
+
   - apiVersion: v1
     kind: Service
     metadata:
@@ -148,5 +167,64 @@ items:
     spec:
       selector:
         app: postgres-personal
+      ports:
+        - port: 5432
+
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      name: postgres-blog-api-data
+      namespace: prof-test-db
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 512Mi
+
+  - apiVersion: apps/v1
+    kind: StatefulSet
+    metadata:
+      name: postgres-blog-api
+      namespace: prof-test-db
+    spec:
+      serviceName: "postgres-blog-api"
+      replicas: 1
+      selector:
+        matchLabels:
+          app: postgres-blog-api
+      template:
+        metadata:
+          labels:
+            app: postgres-blog-api
+        spec:
+          containers:
+            - name: postgres
+              image: postgres:15
+              env:
+                - name: POSTGRES_PASSWORD
+                  value: "pass"
+                - name: POSTGRES_USER
+                  value: "user"
+                - name: POSTGRES_DB
+                  value: "postgres"
+              ports:
+                - containerPort: 5432
+              volumeMounts:
+                - name: data
+                  mountPath: /var/lib/postgresql/data
+          volumes:
+            - name: data
+              persistentVolumeClaim:
+                claimName: postgres-blog-api-data
+
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: postgres-blog-api
+      namespace: prof-test-db
+    spec:
+      selector:
+        app: postgres-blog-api
       ports:
         - port: 5432
