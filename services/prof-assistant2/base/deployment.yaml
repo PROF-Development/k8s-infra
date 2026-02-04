@@ -17,9 +17,9 @@ spec:
           image: prof-assistant2-image:latest
           envFrom:
             - configMapRef:
-                name: prof-bot-config
+                name: prof-assistant2-config
             - secretRef:
-                name: prof-bot-secrets
+                name: prof-assistant2-secrets
           volumeMounts:
             - name: logs
               mountPath: /project/logs
