@@ -15,7 +15,7 @@ spec:
       middlewares:
         - name: api-strip
 
-    - match: Host(`admin.test.prof-stankin.ru`) && (PathPrefix(`/v1/core`) || PathPrefix(`/v1/categories`))
+    - match: Host(`admin.test.prof-stankin.ru`) && (PathPrefix(`/v1/core`) || PathPrefix(`/v1/categories`) || PathPrefix(`/v1/articles`))
       kind: Rule
       services:
         - name: blog-api-svc
