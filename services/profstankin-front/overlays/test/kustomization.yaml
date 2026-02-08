@@ -3,21 +3,11 @@ kind: Kustomization
 namespace: prof-test-apps
 
 resources:
-- ../../base
-- ingress.yaml
-
-configMapGenerator:
-- envs:
-  - configmap.yaml
-  name: front-config
+  - ../../base
+  - ingress.yaml
+  - middleware.yaml
 
 images:
-- name: chouqe/profstankin-frontend
-  newName: chouqe/profstankin-front
-  newTag: 30bb256
-- name: prof-front-image
-  newName: chouqe/prof-front
-  newTag: ceb6a00
-- name: profstankin-frontend-image
-  newName: chouqe/profstankin-front
-  newTag: 91ddbef
+  - name: chouqe/profstankin-frontend
+    newName: chouqe/profstankin-frontend
+    newTag: latest
