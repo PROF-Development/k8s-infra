@@ -6,13 +6,9 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: traefik
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    # Важно: полное имя middleware с неймплейсом
     traefik.ingress.kubernetes.io/router.middlewares: prof-test-apps-api-strip@kubernetescrd
 spec:
-  ingressClassName: traefik
-  tls:
-    - hosts:
-        - test.prof-stankin.ru
-      secretName: profstankin-tls
   rules:
     - host: test.prof-stankin.ru
       http:
@@ -31,3 +27,7 @@ spec:
                 name: profstankin-front-svc
                 port:
                   number: 80
+  tls:
+    - hosts:
+        - test.prof-stankin.ru
+      secretName: profstankin-tls
