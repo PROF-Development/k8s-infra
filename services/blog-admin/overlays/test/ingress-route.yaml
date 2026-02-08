@@ -3,28 +3,37 @@ kind: IngressRoute
 metadata:
   name: blog-admin-route
   namespace: prof-test-apps
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`admin.test.prof-stankin.ru`) && PathPrefix(`/v1/auth`)
+    - match: Host(`admin.test.prof-stankin.ru`) && (PathPrefix(`/v1/auth`) || PathPrefix(`/v1/user`))
       kind: Rule
+      priority: 100
       services:
         - name: personal-app
           port: 80
       middlewares:
         - name: api-strip
+        - name: force-https
 
     - match: Host(`admin.test.prof-stankin.ru`) && (PathPrefix(`/v1/core`) || PathPrefix(`/v1/categories`) || PathPrefix(`/v1/articles`))
       kind: Rule
+      priority: 100
       services:
         - name: blog-api-svc
           port: 80
       middlewares:
         - name: api-strip
+        - name: force-https
 
     - match: Host(`admin.test.prof-stankin.ru`) && PathPrefix(`/`)
       kind: Rule
+      priority: 1
       services:
         - name: blog-admin-svc
           port: 80
