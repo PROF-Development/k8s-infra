@@ -1,7 +1,7 @@
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
-  name: api-strip
+  name: blog-admin-api-strip
   namespace: prof-test-apps
 spec:
   replacePathRegex:
@@ -12,7 +12,7 @@ spec:
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
-  name: force-https
+  name: blog-admin-force-https
   namespace: prof-test-apps
 spec:
   headers:

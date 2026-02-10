@@ -18,8 +18,8 @@ spec:
         - name: personal-app
           port: 80
       middlewares:
-        - name: api-strip
-        - name: force-https
+        - name: blog-admin-api-strip
+        - name: blog-admin-force-https
 
     - match: Host(`admin.test.prof-stankin.ru`) && (PathPrefix(`/v1/core`) || PathPrefix(`/v1/categories`) || PathPrefix(`/v1/articles`))
       kind: Rule
@@ -28,8 +28,8 @@ spec:
         - name: blog-api-svc
           port: 80
       middlewares:
-        - name: api-strip
-        - name: force-https
+        - name: blog-admin-api-strip
+        - name: blog-admin-force-https
 
     - match: Host(`admin.test.prof-stankin.ru`) && PathPrefix(`/`)
       kind: Rule
