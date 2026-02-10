@@ -11,10 +11,10 @@ data:
   POSTGRES_DB: "postgres"
   JWT_ALGORITHM: "HS256"
   INSPECT_TOKEN_URL: "http://personal-app/api/v1/auth/inspect_token"
-  MINIO_ENDPOINT: "minio.prof-test-db.svc.cluster.local:9000"
-  MINIO_ACCESS_KEY: "minioadmin"
-  MINIO_SECRET_KEY: "minio123"
-  MINIO_SECURE: "False"
-  MINIO_BUCKET_NAME: "blog-images"
-  MINIO_BASE_URL: "https://minio-api.test.prof-stankin.ru"
+  MINIO_ENDPOINT: s3.twcstorage.ru
+  MINIO_ACCESS_KEY: "8VCZ1KYG145T46I3RYIQ"
+  MINIO_SECRET_KEY: "qxYkAzmPGF1gwh55zmvFAs0WIu8oBROQ2xjRiTyS"
+  MINIO_SECURE: "True"
+  MINIO_BUCKET_NAME: fb76e6ff-blog-images
+  MINIO_BASE_URL: https://s3.twcstorage.ru/fb76e6ff-blog-images
   CORS_DOMAIN: "https://admin.test.prof-stankin.ru,https://api-blog.test.prof-stankin.ru"

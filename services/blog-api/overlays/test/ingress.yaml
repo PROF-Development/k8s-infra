@@ -2,9 +2,10 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: blog-api-ingress
+  namespace: prof-test-apps
   annotations:
     kubernetes.io/ingress.class: traefik
-    traefik.ingress.kubernetes.io/router.middlewares: default-blog-api-cors@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: prof-test-apps-blog-api-cors@kubernetescrd
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
     traefik.ingress.kubernetes.io/service.serversscheme: http
 spec:
