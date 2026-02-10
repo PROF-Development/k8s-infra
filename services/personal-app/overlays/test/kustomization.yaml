@@ -3,20 +3,20 @@ kind: Kustomization
 namespace: prof-test-apps
 
 resources:
-  - ../../base
-  - ingress.yaml
+- ../../base
+- ingress.yaml
 
 configMapGenerator:
-  - name: personal-app-config
-    envs:
-      - configmap.yaml
+- envs:
+  - configmap.yaml
+  name: personal-app-config
 
 secretGenerator:
-  - name: personal-app-secrets
-    envs:
-      - secrets.yaml
+- envs:
+  - secrets.yaml
+  name: personal-app-secrets
 
 images:
-  - name: personal-app-image
-    newName: chouqe/personal-app
-    newTag: 031ca87
+- name: personal-app-image
+  newName: chouqe/personal-app
+  newTag: 52711c4
