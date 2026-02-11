@@ -8,8 +8,8 @@ spec:
       annotations:
         vault.hashicorp.com/agent-inject: "true"
         vault.hashicorp.com/role: "personal-app-role"
-        vault.hashicorp.com/address: "https://test.prof-stankin.ru"
-        # Создаем файл с секретами
+        vault.hashicorp.com/address: "http://147.45.184.203:8200"
+        vault.hashicorp.com/tls-skip-verify: "true"
         vault.hashicorp.com/agent-inject-secret-secrets.env: "secrets/data/test/personal-app"
         vault.hashicorp.com/agent-inject-template-secrets.env: |
           {{- with secret "secrets/data/test/personal-app" -}}
