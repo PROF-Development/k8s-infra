@@ -1,5 +1,5 @@
 DEBUG=False
-POSTGRES_HOST=postgres-schedule-api.prof-test-db.svc.cluster.local
+POSTGRES_HOST=postgres-shared.prof-test-db.svc.cluster.local
 POSTGRES_PORT=5432
 POSTGRES_USER=user
 POSTGRES_DB=postgres
