@@ -3,19 +3,19 @@ kind: Kustomization
 namespace: prof-test-apps
 
 resources:
-  - ../../base
+- ../../base
 
 configMapGenerator:
-  - name: prof-assistant2-config
-    envs:
-      - configmap.yaml
+- envs:
+  - configmap.yaml
+  name: prof-assistant2-config
 
 secretGenerator:
-  - name: prof-assistant2-secrets
-    envs:
-      - secrets.yaml
+- envs:
+  - secrets.yaml
+  name: prof-assistant2-secrets
 
 images:
-  - name: prof-assistant2-image
-    newName: chouqe/prof-assistant2
-    newTag: 24df216
+- name: prof-assistant2-image
+  newName: chouqe/prof-assistant2
+  newTag: c38f782
