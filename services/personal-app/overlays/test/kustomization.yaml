@@ -3,20 +3,18 @@ kind: Kustomization
 namespace: prof-test-apps
 
 resources:
-- ../../base
-- ingress.yaml
+  - ../../base
+  - ingress.yaml
 
 configMapGenerator:
 - envs:
-  - configmap.yaml
+    - configmap.yaml
   name: personal-app-config
-
-secretGenerator:
-- envs:
-  - secrets.yaml
-  name: personal-app-secrets
 
 images:
 - name: personal-app-image
   newName: chouqe/personal-app
   newTag: 52711c4
+
+patches:
+  - path: vault-patch.yaml
