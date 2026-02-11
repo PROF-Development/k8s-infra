@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: vault-secrets-exclusive-ingress
+  namespace: prof-test-apps
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+  - host: test.prof-stankin.ru
+    http:
+      paths:
+      - path: /secrets
+        pathType: Exact # Используем Exact, чтобы быть точнее фронтенда
+        backend:
+          service:
+            name: vault-remote-service
+            port:
+              number: 80
