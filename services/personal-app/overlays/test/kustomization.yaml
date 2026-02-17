@@ -7,14 +7,16 @@ resources:
   - ingress.yaml
 
 configMapGenerator:
-- envs:
+- name: personal-app-config
+  envs:
     - configmap.yaml
-  name: personal-app-config
+
+secretGenerator:
+- name: personal-app-secrets
+  envs:
+    - secrets.yaml
 
 images:
 - name: personal-app-image
   newName: chouqe/personal-app
   newTag: 52711c4
-
-patches:
-  - path: vault-patch.yaml
