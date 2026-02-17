@@ -5,18 +5,10 @@ namespace: prof-test-apps
 resources:
   - ../../base
   - ingress.yaml
-
-configMapGenerator:
-- name: personal-app-config
-  envs:
-    - configmap.yaml
-
-secretGenerator:
-- name: personal-app-secrets
-  envs:
-    - secrets.yaml
+  - configmap-resource.yaml
+  - secrets-resource.yaml
 
 images:
-- name: personal-app-image
-  newName: chouqe/personal-app
-  newTag: 52711c4
+  - name: personal-app-image
+    newName: chouqe/personal-app
+    newTag: 52711c4
