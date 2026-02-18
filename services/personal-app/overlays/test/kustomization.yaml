@@ -3,21 +3,7 @@ kind: Kustomization
 namespace: prof-test-apps
 
 resources:
-  - ../../base
+  - deployment-fixed.yaml
   - ingress.yaml
   - configmap-resource.yaml
   - secrets-resource.yaml
-
-patches:
-  - target:
-      kind: Deployment
-      name: personal-app
-    patch: |-
-      - op: replace
-        path: /spec/template/spec/containers/0/image
-        value: chouqe/personal-app:52711c4
-      - op: add
-        path: /spec/template/spec/containers/0/envFrom/-
-        value:
-          secretRef:
-            name: personal-app-secrets
