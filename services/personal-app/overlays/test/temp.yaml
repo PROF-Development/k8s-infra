@@ -1,0 +1,104 @@
+apiVersion: v1
+data:
+  API_COOKIE_PATH: /
+  API_COOKIE_SECURE: "false"
+  API_CORS_ORIGINS: https://personal.test.prof-stankin.ru,https://admin.test.prof-stankin.ru
+  AUTH_ALGORITHM: HS256
+  AUTH_REFRESH_TOKEN_EXPIRATION_TIME: "30"
+  AUTH_TOKEN_EXPIRATION_TIME: "60"
+  POSTGRES_DATABASE: postgres
+  POSTGRES_HOST: postgres-shared.prof-test-db.svc.cluster.local
+  POSTGRES_MIGRATIONS_DIR: migrations
+  POSTGRES_PORT: "5432"
+  POSTGRES_SSLMODE: disable
+  POSTGRES_USER: user
+  S3_BASE_URL: https://minio.test.prof-stankin.ru
+  S3_BUCKET_NAME: personal-images
+  S3_ENDPOINT: minio:9000
+  S3_SECURE: "false"
+  SERVER_HOST: 0.0.0.0
+  SERVER_PORT: "8080"
+kind: ConfigMap
+metadata:
+  name: personal-app-config
+  namespace: prof-test-apps
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: personal-app-secrets
+  namespace: prof-test-apps
+stringData:
+  ACCESS_TOKEN_SECRET: super-secret-key-here
+  AUTH_KEY: super-secret-key-here
+  JWT_SECRET: super-secret-key-here
+  JWT_SECRET_KEY: super-secret-key-here
+  POSTGRES_PASSWORD: pass
+  S3_ACCESS_KEY: minioadmin
+  S3_SECRET_KEY: minio123
+type: Opaque
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: personal-app
+  namespace: prof-test-apps
+spec:
+  ports:
+  - port: 80
+    targetPort: 8080
+  selector:
+    app: personal-app
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: personal-app
+  namespace: prof-test-apps
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: personal-app
+  template:
+    metadata:
+      labels:
+        app: personal-app
+    spec:
+      containers:
+      - envFrom:
+        - configMapRef:
+            name: personal-app-config
+        - secretRef:
+            name: personal-app-secrets
+        image: chouqe/personal-app:latest
+        name: app
+        ports:
+        - containerPort: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.middlewares: default-blog-api-cors@kubernetescrd
+    traefik.ingress.kubernetes.io/router.tls: "true"
+  name: personal-app
+  namespace: prof-test-apps
+spec:
+  rules:
+  - host: api-personal.test.prof-stankin.ru
+    http:
+      paths:
+      - backend:
+          service:
+            name: personal-app
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - api-personal.test.prof-stankin.ru
+    secretName: personal-app-tls

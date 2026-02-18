@@ -8,8 +8,16 @@ resources:
   - configmap-resource.yaml
   - secrets-resource.yaml
 
-images:
-  - name: personal-app-image
-    newName: chouqe/personal-app
-    newTag: 52711c4
-
+patches:
+  - target:
+      kind: Deployment
+      name: personal-app
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/image
+        value: chouqe/personal-app:52711c4
+      - op: add
+        path: /spec/template/spec/containers/0/envFrom/-
+        value:
+          secretRef:
+            name: personal-app-secrets
