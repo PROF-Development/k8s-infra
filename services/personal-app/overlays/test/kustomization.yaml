@@ -4,6 +4,7 @@ namespace: prof-test-apps
 
 resources:
   - deployment-fixed.yaml
+  - service.yaml
   - ingress.yaml
   - configmap-resource.yaml
   - secrets-resource.yaml
