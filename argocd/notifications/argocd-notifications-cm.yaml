@@ -6,8 +6,11 @@ metadata:
 data:
   service.telegram: |
     token: $telegram-token
+    messageThreadID: "6751"
 
-  # Универсальный шаблон для всех событий
+  subscriptions:
+    - recipients: [telegram:-1001829910307] # ID группы
+      triggers: [on-sync-succeeded, on-sync-failed, on-health-degraded, on-deployed]
   template.app-status-template: |
     message: |
       {{ if eq .app.status.operationState.phase "Running" }}⏳{{ else if eq .app.status.sync.status "Synced" }}✅{{ else }}⚠️{{ end }} **App:** {{.app.metadata.name}}
