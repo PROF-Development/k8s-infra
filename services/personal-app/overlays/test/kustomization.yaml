@@ -3,8 +3,12 @@ kind: Kustomization
 namespace: prof-test-apps
 
 resources:
-  - deployment.yaml
-  - service.yaml
-  - ingress.yaml
-  - configmap-resource.yaml
-  - secrets-resource.yaml
+- deployment.yaml
+- service.yaml
+- ingress.yaml
+- configmap-resource.yaml
+- secrets-resource.yaml
+images:
+- name: personal-app-image
+  newName: chouqe/personal-app
+  newTag: fe29ea3

@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: prof-test-apps
+
+resources:
+- ../../base
+
+configMapGenerator:
+- envs:
+  - configmap.yaml
+  name: prof-assistant2-config
+
+secretGenerator:
+- envs:
+  - secrets.yaml
+  name: prof-assistant2-secrets
+
+images:
+- name: prof-assistant2-image
+  newName: chouqe/prof-assistant2
+  newTag: 3adfb81
