@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-notifications-cm
+  namespace: argocd
+data:
+  service.telegram: |
+    token: $telegram-token
+
+  # Универсальный шаблон для всех событий
+  template.app-status-template: |
+    message: |
+      {{ if eq .app.status.operationState.phase "Running" }}⏳{{ else if eq .app.status.sync.status "Synced" }}✅{{ else }}⚠️{{ end }} **App:** {{.app.metadata.name}}
+      🔹 **Sync:** {{.app.status.sync.status}}
+      🔹 **Health:** {{.app.status.health.status}}
+      
+      {{ if .app.status.operationState.message }}💬 **Message:** {{.app.status.operationState.message}}{{ end }}
+      
+      🔗 [Открыть в Argo CD](https://argocd.test.prof-stankin.ru/applications/{{.app.metadata.name}})
+
+  # 1. Триггер: Успешная синхронизация
+  trigger.on-sync-succeeded: |
+    - description: Application syncing has succeeded
+      send: [app-status-template]
+      when: app.status.operationState.phase in ['Succeeded']
+
+  # 2. Триггер: Ошибка синхронизации (неправильный манифест, ошибка Git)
+  trigger.on-sync-failed: |
+    - description: Application syncing has failed
+      send: [app-status-template]
+      when: app.status.operationState.phase in ['Failed', 'Error']
+
+  # 3. Триггер: Проблема со здоровьем (Degraded) - если под упал или не поднялся
+  trigger.on-health-degraded: |
+    - description: Application health is degraded
+      send: [app-status-template]
+      when: app.status.health.status == 'Degraded'
+
+  # 4. Триггер: Приложение удалено
+  trigger.on-deployed: |
+    - description: Application is deleted
+      send: [app-status-template]
+      when: app.metadata.deletionTimestamp != nil

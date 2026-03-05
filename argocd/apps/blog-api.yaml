@@ -1,14 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: prof-front
+  name: blog-api
   namespace: argocd
+  annotations:
+    notifications.argoproj.io/subscribe.on-sync-failed.telegram: "-5114298940"
+    notifications.argoproj.io/subscribe.on-sync-succeeded.telegram: "-5114298940"
+    notifications.argoproj.io/subscribe.on-health-degraded.telegram: "-5114298940"
+    notifications.argoproj.io/subscribe.on-deployed.telegram: "-5114298940"
 spec:
   project: default
   source:
     repoURL: https://github.com/PROF-Development/k8s-infra.git
     targetRevision: HEAD
-    path: services/profstankin-front/overlays/test
+    path: services/blog-api/overlays/test
   destination:
     server: https://kubernetes.default.svc
     namespace: prof-test-apps

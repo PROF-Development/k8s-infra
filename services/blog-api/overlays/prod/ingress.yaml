@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: blog-api-ingress
+  namespace: prof-prod-apps
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/router.middlewares: prof-prod-apps-blog-api-cors@kubernetescrd
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    traefik.ingress.kubernetes.io/service.serversscheme: http
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - api-blog.prof-stankin.ru
+      secretName: blog-api-tls
+  rules:
+    - host: api-blog.prof-stankin.ru
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: blog-api-svc
+                port:
+                  number: 80
