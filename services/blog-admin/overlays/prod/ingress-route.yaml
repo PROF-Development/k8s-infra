@@ -11,7 +11,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`admin.prof-stankin.ru`) && (PathPrefix(`/v1/auth`) || PathPrefix(`/v1/user`))
+    - match: Host(`admin.prof-stankin.ru`) && (PathPrefix(`/v1/auth`) || PathPrefix(`/v1/user/me/avatar`) ||PathPrefix(`/v1/user`))
       kind: Rule
       priority: 100
       services:
@@ -21,7 +21,7 @@ spec:
         - name: admin-api-strip
         - name: force-https
 
-    - match: Host(`admin.prof-stankin.ru`) && (PathPrefix(`/v1/core`) || PathPrefix(`/v1/categories`) || PathPrefix(`/v1/posts`) || PathPrefix(`/v1/articles`) || PathPrefix(`/v1/tags`) || PathPrefix(`/v1/media`) || PathPrefix(`/v1/settings`))
+    - match: Host(`admin.prof-stankin.ru`) && (PathPrefix(`/v1/core`) || PathPrefix(`/v1/categories`) || PathPrefix(`/v1/articles`) || PathPrefix(`/v1/blocks`))
       kind: Rule
       priority: 100
       services:
