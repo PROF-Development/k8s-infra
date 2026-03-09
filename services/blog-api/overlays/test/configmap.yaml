@@ -16,5 +16,5 @@ data:
   MINIO_SECRET_KEY: "qxYkAzmPGF1gwh55zmvFAs0WIu8oBROQ2xjRiTyS"
   MINIO_SECURE: "True"
   MINIO_BUCKET_NAME: fb76e6ff-blog-images
-  MINIO_BASE_URL: https://s3.twcstorage.ru/fb76e6ff-blog-images
+  MINIO_BASE_URL: https://s3.twcstorage.ru
   CORS_DOMAIN: "https://admin.test.prof-stankin.ru,https://api-blog.test.prof-stankin.ru"

@@ -7,7 +7,6 @@ spec:
   replacePathRegex:
     regex: "^/v1/([^/]+)(/.*)?"
     replacement: "/api/v1/$1$2"
-
 ---
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
