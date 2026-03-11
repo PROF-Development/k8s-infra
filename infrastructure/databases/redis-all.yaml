@@ -4,61 +4,63 @@ items:
   - apiVersion: apps/v1
     kind: Deployment
     metadata:
-      name: redis-schedule-api
+      name: redis-shared
       namespace: prof-test-db
+      labels:
+        app: redis-shared
+        app.kubernetes.io/instance: infrastructure-apps
     spec:
       replicas: 1
       selector:
         matchLabels:
-          app: redis-schedule-api
+          app: redis-shared
       template:
         metadata:
           labels:
-            app: redis-schedule-api
+            app: redis-shared
         spec:
           containers:
             - name: redis
-              image: redis:7
+              image: redis:7-alpine
               ports:
                 - containerPort: 6379
+              resources:
+                requests:
+                  cpu: 50m
+                  memory: 64Mi
+
   - apiVersion: v1
     kind: Service
     metadata:
-      name: redis-schedule-api
+      name: redis-shared
       namespace: prof-test-db
+      labels:
+        app: redis-shared
+        app.kubernetes.io/instance: infrastructure-apps
     spec:
       selector:
-        app: redis-schedule-api
+        app: redis-shared
       ports:
         - port: 6379
 
-  - apiVersion: apps/v1
-    kind: Deployment
+  - apiVersion: v1
+    kind: Service
     metadata:
-      name: redis-prof-assistant
+      name: redis-schedule-api
       namespace: prof-test-db
+      labels:
+        app.kubernetes.io/instance: infrastructure-apps
     spec:
-      replicas: 1
-      selector:
-        matchLabels:
-          app: redis-prof-assistant
-      template:
-        metadata:
-          labels:
-            app: redis-prof-assistant
-        spec:
-          containers:
-            - name: redis
-              image: redis:7
-              ports:
-                - containerPort: 6379
+      type: ExternalName
+      externalName: redis-shared.prof-test-db.svc.cluster.local
+
   - apiVersion: v1
     kind: Service
     metadata:
       name: redis-prof-assistant
       namespace: prof-test-db
+      labels:
+        app.kubernetes.io/instance: infrastructure-apps
     spec:
-      selector:
-        app: redis-prof-assistant
-      ports:
-        - port: 6379
+      type: ExternalName
+      externalName: redis-shared.prof-test-db.svc.cluster.local
