@@ -11,4 +11,4 @@ resources:
 images:
 - name: personal-app-image
   newName: chouqe/personal-app
-  newTag: fe29ea3
+  newTag: c4651f1
