@@ -15,4 +15,4 @@ secretGenerator:
 images:
 - name: blog-api-image
   newName: chouqe/blog-api-application
-  newTag: ffa30dd
+  newTag: "1005879"
