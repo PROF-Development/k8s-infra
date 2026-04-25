@@ -61,3 +61,33 @@ items:
         app: redis-prof-assistant
       ports:
         - port: 6379
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: redis-blog-api
+      namespace: prof-prod-db
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app: redis-blog-api
+      template:
+        metadata:
+          labels:
+            app: redis-blog-api
+        spec:
+          containers:
+            - name: redis
+              image: redis:7
+              ports:
+                - containerPort: 6379
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: redis-blog-api
+      namespace: prof-prod-db
+    spec:
+      selector:
+        app: redis-blog-api
+      ports:
+        - port: 6379
