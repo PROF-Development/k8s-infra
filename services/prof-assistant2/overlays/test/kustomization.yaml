@@ -18,4 +18,4 @@ secretGenerator:
 images:
 - name: prof-assistant2-image
   newName: chouqe/prof-assistant2
-  newTag: 53122f9
+  newTag: 334cc17
